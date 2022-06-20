@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time-app-deployment-jenkis
+spec:
+  selector:
+   matchLabels:
+    app: time-app-jenkis
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: time-app-jenkis
+    spec:
+      containers:
+        - name: time-app-jenkis
+          image: jiflorez/timeappchallenge       
+          ports:
+            - containerPort: 80
+              name: timeapp
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: time-app-service-jenkis
+  labels:
+    app: time-app-jenkis
+spec:   
+  ports:
+  - name: time-app-jenkis
+    protocol:tcp
+    port: 80
+    targetPort : 80 
+  type: LoadBalancer
+  #type: NodePort
+  selector:
+   app: time-app-jenkis
