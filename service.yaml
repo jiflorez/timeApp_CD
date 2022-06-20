@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: time-app-service-jenkis
+  labels:
+    app: time-app-jenkis
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+  selector:
+    app: time-app-jenkins

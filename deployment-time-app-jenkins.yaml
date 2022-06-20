@@ -19,19 +19,17 @@ spec:
             - containerPort: 80
               name: timeapp
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: time-app-service-jenkis
   labels:
     app: time-app-jenkis
-spec:   
+spec:
+  type: NodePort
   ports:
-  - name: time-app-jenkis
-    protocol:tcp
-    port: 80
-    targetPort : 80 
-  type: LoadBalancer
-  #type: NodePort
+    - port: 80
+      targetPort: 3001
+      name: time-app-jenkis
   selector:
-   app: time-app-jenkis
+    app: time-app-jenkins
